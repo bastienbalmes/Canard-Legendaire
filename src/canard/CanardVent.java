@@ -22,7 +22,13 @@ public class CanardVent extends Canard {
                 return;
             }
         }
-        this.vitesse *= multiplicateurVitesse++;
+        if(this.getPe() > 0){
+            this.vitesse *= multiplicateurVitesse++;
+            pe -= 15;
+        }else{
+            System.out.println("Plus de PE");
+        }
+
     }
 
     @Override

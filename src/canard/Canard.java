@@ -10,6 +10,7 @@ public abstract class Canard {
     protected double dgtAttaque;
     protected ArrayList<Integer> listeStatus;
     protected int vitesse;
+    protected int pe;
 
     public Canard(String nom, TypeCanard type, int ptsVie, double dgtAttaque, int vitesse) {
         this.nom = nom;
@@ -17,6 +18,7 @@ public abstract class Canard {
         this.ptsVie = ptsVie;
         this.dgtAttaque = dgtAttaque;
         this.vitesse = vitesse;
+        this.pe = 100;
         listeStatus = new ArrayList<>(Collections.nCopies(TypeStatus.values().length, 0));
     }
 
@@ -61,14 +63,22 @@ public abstract class Canard {
         return dgtAttaque;
     }
 
+    public int getPe() {
+        return pe;
+    }
+
+    public int getVitesse() {
+        return vitesse;
+    }
+
     public void attaquer(Canard canardAttaque) {
+        Random rand = new Random();
         if (listeStatus.get(TypeStatus.GELEE.ordinal()) > 0) {
             System.out.println(this.nom + " Ta froid mon petit loulou, tu veux une veste le temps que tu restes gelé ?");
             return;
         }
 
         if (listeStatus.get(TypeStatus.PARALYSE.ordinal()) > 0) {
-            Random rand = new Random();
             if (rand.nextBoolean()) {
                 System.out.println(this.nom + " Tu feras attention petit gars, tu peux plus bouger !! (ça doit être frustrant) ");
                 return;
@@ -76,11 +86,28 @@ public abstract class Canard {
         }
         if (listeStatus.get(TypeStatus.DGTSUPP.ordinal()) > 0) {
             System.out.println(this.nom + " ça va péter péter !!!!!!");
-            canardAttaque.subirDegats(10000000);
+            if(this.getPe() > 0){
+                canardAttaque.subirDegats(10000000);
+                pe -= 5;
+            }else{
+                System.out.println("Plus de PE");
+            }
+
             return;
         }
+
         System.out.println("ça doit faire mal ça");
-        canardAttaque.subirDegats(this.dgtAttaque * TypeCanard.getMultiplicateur(this.type, canardAttaque.getType()));
+        if(this.getPe() > 0){
+            boolean coupCritique = rand.nextInt(100) < 10;
+            if (coupCritique) {
+                canardAttaque.subirDegats((this.dgtAttaque * TypeCanard.getMultiplicateur(this.type, canardAttaque.getType()))*2);
+                System.out.println("ça doit piquer ! COUP CRITIQUE");
+            }
+
+            pe -= 5;
+        }else{
+            System.out.println("Plus de PE");
+        }
     }
     public void subirDegats(double degats){
         this.ptsVie-=degats;

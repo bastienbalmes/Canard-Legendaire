@@ -5,34 +5,52 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Bienvenue dans Canard Fighter Simulator !");
 
-
         Canard canard1 = creerCanard(scanner, 1);
         Canard canard2 = creerCanard(scanner, 2);
 
-
         System.out.println(canard1.getNom() + " (Type: " + canard1.getType() + ") VS " + canard2.getNom() + " (Type: " + canard2.getType() + ")");
 
+        // Comparer les vitesses des canards pour déterminer qui commence
+        Canard premierAttaquant = canard1.getVitesse() >= canard2.getVitesse() ? canard1 : canard2;
+        Canard secondAttaquant = premierAttaquant == canard1 ? canard2 : canard1;
+
         while (!canard1.estKo() && !canard2.estKo()) {
-            if (tourDeCombat(scanner, canard1, canard2)) {
+            // Tour de combat du premier attaquant
+            if (tourDeCombat(scanner, premierAttaquant, secondAttaquant)) {
                 break;
             }
-            if (canard2.estKo()) {
-                System.out.println(canard2.getNom() + " est KO. " + canard1.getNom() + " gagne !");
-                break;
-            }
-
-            if (tourDeCombat(scanner, canard2, canard1)) {
+            if (secondAttaquant.estKo()) {
+                System.out.println(secondAttaquant.getNom() + " est KO. " + premierAttaquant.getNom() + " gagne !");
                 break;
             }
 
-            if (canard1.estKo()) {
-                System.out.println(canard1.getNom() + " est KO. " + canard2.getNom() + " gagne !");
+            // Tour de combat du second attaquant
+            if (tourDeCombat(scanner, secondAttaquant, premierAttaquant)) {
                 break;
+            }
+
+            if (premierAttaquant.estKo()) {
+                System.out.println(premierAttaquant.getNom() + " est KO. " + secondAttaquant.getNom() + " gagne !");
+                break;
+            }
+            if (canard1.getPe() <= 0 && canard2.getPe() <= 0) {
+                if (canard1.getPtsVie() > canard2.getPtsVie()) {
+                    System.out.println(canard1.getNom() + " gagne ! (plus de PV)");
+                    break;
+                } else if (canard2.getPtsVie() > canard1.getPtsVie()) {
+                    System.out.println(canard2.getNom() + " gagne ! (plus de PV)");
+                    break;
+                } else {
+                    System.out.println("Les deux canards sont à égalité.");
+                    break;
+                }
             }
         }
 
+
         scanner.close();
     }
+
 
     public static Canard creerCanard(Scanner scanner, int numero) {
         System.out.println("Création du Canard " + numero);
@@ -86,13 +104,24 @@ public class Main {
         scanner.nextLine();
 
         if (choix == 1) {
-            attaquant.attaquer(defendeur);
-            System.out.println(attaquant.getNom() + " attaque " + defendeur.getNom() + " !");
+            if (attaquant.getPe() >= 5) {
+                attaquant.attaquer(defendeur);
+                System.out.println(attaquant.getNom() + " attaque " + defendeur.getNom() + " !");
+            } else {
+                System.out.println(attaquant.getNom() + " n'a pas assez de PE pour attaquer.");
+            }
         } else if (choix == 2) {
-            if(attaquant.getType() == TypeCanard.GLACE){
-                attaquant.activerCapaciteSpecialeAttaquante(defendeur);
-            }else{
-                attaquant.activerCapaciteSpeciale();
+            if (attaquant.getPe() >= 15) {
+                if (attaquant.getType() == TypeCanard.GLACE) {
+                    attaquant.activerCapaciteSpecialeAttaquante(defendeur);
+                } else {
+                    attaquant.activerCapaciteSpeciale();
+                }
+            } else if (attaquant.getPe() >= 5 && attaquant.getPe() < 15) {
+                attaquant.attaquer(defendeur);
+                System.out.println(attaquant.getNom() + " Attaque simple lancer, pas assez de PE pour une spéciale ");
+            } else {
+                System.out.println(attaquant.getNom() + " n'a pas assez de PE pour l'attaque spéciale.");
             }
         } else if (choix == 3) {
             System.out.println("Fin du combat.");
@@ -101,7 +130,9 @@ public class Main {
         attaquant.majStatut();
 
         System.out.println(attaquant.getNom() + " PV: " + attaquant.getPtsVie());
+        System.out.println(attaquant.getNom() + " PE: " + attaquant.getPe());
         System.out.println(defendeur.getNom() + " PV: " + defendeur.getPtsVie());
+        System.out.println(defendeur.getNom() + " PE: " + defendeur.getPe());
         return false;
     }
 }

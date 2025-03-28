@@ -27,7 +27,13 @@ public class CanardGlace extends Canard {
                 return;
             }
         }
-        cibleCanard.appliquerEffets(TypeStatus.GELEE,2);
-        System.out.println(cibleCanard.nom + " est geler c'est du propre ça ");
+        if(this.getPe() > 0){
+            cibleCanard.appliquerEffets(TypeStatus.GELEE,2);
+            System.out.println(cibleCanard.nom + " est geler c'est du propre ça ");
+            pe -= 15;
+        }else{
+            System.out.println("Plus de PE");
+        }
+
     }
 }

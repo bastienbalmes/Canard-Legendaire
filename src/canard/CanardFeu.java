@@ -21,7 +21,13 @@ public class CanardFeu extends Canard {
                 return;
             }
         }
-        this.appliquerEffets(TypeStatus.DGTSUPP,2);
+        if(this.getPe() > 0){
+            this.appliquerEffets(TypeStatus.DGTSUPP,2);
+            pe -= 15;
+        }else{
+            System.out.println("Plus de PE");
+        }
+
     }
 
     @Override
@@ -29,13 +35,4 @@ public class CanardFeu extends Canard {
 
     }
 
-    @Override
-    public void attaquer(Canard canardAttauqer){
-        if (verifierLeStatut(TypeStatus.GELEE) || verifierLeStatut(TypeStatus.PARALYSE)) {
-            return ;
-        } else if (verifierLeStatut(TypeStatus.DGTSUPP)) {
-            canardAttauqer.subirDegats(this.getDgtAttaque()*TypeCanard.getMultiplicateur(this.type, canardAttauqer.getType())+100000000);
-        }
-        canardAttauqer.subirDegats(this.getDgtAttaque()*TypeCanard.getMultiplicateur(this.type, canardAttauqer.getType()));
-    }
 }

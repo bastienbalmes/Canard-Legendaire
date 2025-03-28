@@ -21,7 +21,13 @@ public class CanardEau extends Canard {
                 return;
             }
         }
-        this.ptsVie += 20;
+        if(this.getPe() > 0){
+            this.ptsVie += 20;
+            pe -= 15;
+        }else{
+            System.out.println("Plus de PE");
+        }
+
     }
 
     @Override
