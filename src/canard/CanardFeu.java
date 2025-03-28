@@ -34,5 +34,14 @@ public class CanardFeu extends Canard {
     public void activerCapaciteSpecialeAttaquante(Canard cibleCanard) {
 
     }
+    @Override
+    public void attaquer(Canard canardAttaque) {
+        super.attaquer(canardAttaque);
+        Random rand = new Random();
+        if (rand.nextInt(100) < 30) {
+            canardAttaque.appliquerEffets(TypeStatus.BRULE, 3);
+            System.out.println(canardAttaque.getNom() + " ça sent le canard roti par ici ! ");
+        }
+    }
 
 }
