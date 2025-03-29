@@ -65,3 +65,4 @@ J'ai choisi une `ArrayList<Integer>` pour stocker la durée de chaque statut, ce
 ---
 
 ## Diagramme UML des classes
+[DIG-classe.png]
