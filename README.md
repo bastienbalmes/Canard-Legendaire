@@ -12,10 +12,10 @@ Des comportements comme `attaquer()` ou `activerCapaciteSpeciale()` pourraient �
 Les statuts comme "brûlé" ou "paralysé" sont représentés par un `enum` (`TypeStatus`). Cet enum permet de gérer facilement les effets de statut et facilite l'ajout de nouveaux statuts
 
 ### 4. Quels seraient les avantages d’utiliser une classe ou une interface supplémentaire pour gérer les capacités spéciales ?
-Une classe ou interface supplémentaire pour les capacités spéciales permettrait de mieux séparer la logique des différentes capacités. Cela rendrait le code plus lisible et plus facile à maintenir, car chaque capacité spéciale serais implémenter indépendamment des autres
+Une interface supplémentaire pour les capacités spéciales permettrait de mieux gérer les capacités spéciale de nos canard. Chaque capacité spéciale serais implémenter indépendamment des autres
 
 ### 5. Quels défis sont associés à l’extensibilité du modèle pour ajouter de nouveaux types de canards ou de nouvelles capacités ?
-Le principal défi est de s’assurer que les nouveaux types de canards ou capacités n'entrent pas en conflit avec les existants. L'utilisation d'interfaces et de classes abstraites facilite l'ajout de nouveaux éléments. De plus, il faut s'assurer que les interactions entre types de canards restent équilibrées
+Le principal défi est de s’assurer que les nouveaux types de canards et de capacités n'entrent pas en conflit avec les existants. Une interfaces ou une classes abstraites faciliterais l'ajout de nouveaux éléments
 
 ---
 
