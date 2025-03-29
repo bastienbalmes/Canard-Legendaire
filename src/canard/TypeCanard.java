@@ -5,7 +5,7 @@ package canard;
  * Les types sont : EAU, FEU, GLACE, et VENT
  */
 public enum TypeCanard {
-    EAU, FEU, GLACE, VENT;
+    EAU, FEU, GLACE, VENT,ELECTRIQUE,TOXIQUE,SOL;
 
     /**
      * Retourne le multiplicateur de dégats en fonction des types de canard
@@ -23,13 +23,19 @@ public enum TypeCanard {
         }
         switch (attaquant) {
             case EAU:
-                return (cible == FEU) ? 2.0 : (cible == VENT ? 0.5 : 1.0);
+                return (cible == FEU || cible == SOL) ? 2.0 : (cible == GLACE || cible == VENT ? 0.5 : 1.0);
             case FEU:
-                return (cible == GLACE) ? 2.0 : (cible == EAU ? 0.5 : 1.0);
+                return (cible == GLACE || cible == TOXIQUE) ? 2.0 : (cible == EAU || cible == SOL ? 0.5 : 1.0);
             case GLACE:
-                return (cible == VENT) ? 2.0 : (cible == FEU ? 0.5 : 1.0);
+                return (cible == VENT || cible == SOL) ? 2.0 : (cible == FEU || cible == TOXIQUE ? 0.5 : 1.0);
             case VENT:
-                return (cible == EAU) ? 2.0 : (cible == GLACE ? 0.5 : 1.0);
+                return (cible == EAU || cible == TOXIQUE) ? 2.0 : (cible == GLACE || cible == ELECTRIQUE ? 0.5 : 1.0);
+            case ELECTRIQUE:
+                return (cible == VENT || cible == EAU) ? 2.0 : (cible == SOL ? 0.5 : 1.0);
+            case TOXIQUE:
+                return (cible == GLACE || cible == EAU) ? 2.0 : (cible == FEU || cible == SOL ? 0.5 : 1.0);
+            case SOL:
+                return (cible == FEU || cible == ELECTRIQUE) ? 2.0 : (cible == EAU || cible == GLACE ? 0.5 : 1.0);
             default:
                 return 1.0;
         }
