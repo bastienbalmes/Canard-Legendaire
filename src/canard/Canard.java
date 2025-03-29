@@ -11,6 +11,8 @@ public abstract class Canard {
     protected ArrayList<Integer> listeStatus;
     protected int vitesse;
     protected int pe;
+    private int pvMax;
+
 
     /**
      * Constructeur de la classe Canard
@@ -22,6 +24,7 @@ public abstract class Canard {
      * @param vitesse    vitesse du canard
      */
     public Canard(String nom, TypeCanard type, int ptsVie, double dgtAttaque, int vitesse) {
+        this.pvMax = ptsVie;
         this.nom = nom;
         this.type = type;
         this.ptsVie = ptsVie;
@@ -198,6 +201,27 @@ public abstract class Canard {
             default:
                 return 1.0;
         }
+    }
+
+    public void evoluer() {
+        this.ptsVie += 10;  // Augmente de 10 PV
+        this.dgtAttaque += 5;  // Augmente de 5 PA
+        System.out.println(this.nom + " a évolué ! PV: " + this.ptsVie + ", PA: " + this.dgtAttaque);
+    }
+
+    public void setPtsVie(double ptsVie) {
+        this.ptsVie = ptsVie;
+    }
+
+    public void setPe(int pe) {
+        this.pe = pe;
+    }
+
+    public void resetPv() {
+        this.ptsVie = pvMax;  // Assurez-vous que pvMax stocke les PV initiaux
+    }
+    public void resetPe() {
+        this.pe = 100;  // Assurez-vous que pvMax stocke les PV initiaux
     }
 
     /**
