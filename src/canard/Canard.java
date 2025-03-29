@@ -66,6 +66,11 @@ public abstract class Canard {
                     this.ptsVie -= degatsBrulure;
                     System.out.println(this.nom + "Tu perd de la vie mon grand il ne fallais pas jouer avec le feu");
                 }
+                if (i == TypeStatus.POISON.ordinal()) {
+                    // perd 5 pv
+                    this.ptsVie -= 5;
+                    System.out.println(this.nom + "Tu perd de la vie mon grand il ne fallais pas boire la javel");
+                }
             }
         }
     }
@@ -147,10 +152,10 @@ public abstract class Canard {
             boolean coupCritique = rand.nextInt(100) < 10;
             // vérifie si le canard fait un coup critique
             if (coupCritique) {
-                canardAttaque.subirDegats((this.dgtAttaque * TypeCanard.getMultiplicateur(this.type, canardAttaque.getType()))*2);
+                canardAttaque.subirDegats((this.dgtAttaque * this.getMultiplicateur( canardAttaque.getType()))*2);
                 System.out.println("ça doit piquer ! COUP CRITIQUE");
             }
-            canardAttaque.subirDegats((this.dgtAttaque * TypeCanard.getMultiplicateur(this.type, canardAttaque.getType())));
+            canardAttaque.subirDegats((this.dgtAttaque * this.getMultiplicateur(canardAttaque.getType())));
         }else{
             System.out.println("Plus de PE");
         }
@@ -174,6 +179,26 @@ public abstract class Canard {
         return this.ptsVie <=0;
     }
 
+    public double getMultiplicateur(TypeCanard cible) {
+        switch (this.type) {
+            case EAU:
+                return (cible == TypeCanard.FEU || cible == TypeCanard.SOL) ? 2.0 : (cible == TypeCanard.VENT ? 0.5 : (cible == TypeCanard.GLACE ? 0.5 : 1.0));
+            case FEU:
+                return (cible == TypeCanard.GLACE || cible == TypeCanard.TOXIQUE) ? 2.0 : (cible == TypeCanard.EAU || cible == TypeCanard.SOL ? 0.5 : 1.0);
+            case GLACE:
+                return (cible == TypeCanard.VENT || cible == TypeCanard.SOL) ? 2.0 : (cible == TypeCanard.FEU || cible == TypeCanard.TOXIQUE ? 0.5 : 1.0);
+            case VENT:
+                return (cible == TypeCanard.EAU || cible == TypeCanard.TOXIQUE) ? 2.0 : (cible == TypeCanard.GLACE || cible == TypeCanard.ELECTRIQUE ? 0.5 : 1.0);
+            case ELECTRIQUE:
+                return (cible == TypeCanard.VENT || cible == TypeCanard.EAU) ? 2.0 : (cible == TypeCanard.SOL ? 0.5 : 1.0);
+            case TOXIQUE:
+                return (cible == TypeCanard.GLACE || cible == TypeCanard.EAU) ? 2.0 : (cible == TypeCanard.FEU || cible == TypeCanard.SOL ? 0.5 : 1.0);
+            case SOL:
+                return (cible == TypeCanard.FEU || cible == TypeCanard.ELECTRIQUE) ? 2.0 : (cible == TypeCanard.EAU || cible == TypeCanard.GLACE ? 0.5 : 1.0);
+            default:
+                return 1.0;
+        }
+    }
 
     /**
      * Capaciter spéciale, abstraite car chaque type a une capacite spéaciale différente.
