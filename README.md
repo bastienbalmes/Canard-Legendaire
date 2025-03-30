@@ -1,4 +1,4 @@
-# Canard Battle - Modélisation et Choix Techniques
+# Canard Battle - BASTIEN BALMES
 
 ## Questionnements sur la modélisation
 
