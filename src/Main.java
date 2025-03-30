@@ -91,8 +91,6 @@ public class Main {
     }
 
 
-
-
     public static Canard creerCanard(Scanner scanner, int numero) {
         System.out.println("Création du Canard " + numero);
 

@@ -21,6 +21,10 @@ public class CanardToxique extends Canard {
 
     }
 
+    /**
+     * Active la capacité spéciale attaquante
+     * @param cibleCanard canard qui subit l'effet
+     */
     @Override
     public void activerCapaciteSpecialeAttaquante(Canard cibleCanard) {
 // quitte la fonction si le canard qui attaque est gelé

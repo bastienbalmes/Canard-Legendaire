@@ -20,12 +20,18 @@ public class CanardElectrique extends Canard {
     public void activerCapaciteSpeciale() {
 
     }
-
+    /**
+     * Retourne le multiplicateur de dégats
+     */
     @Override
     public double getMultiplicateur(TypeCanard cible) {
         return (cible == TypeCanard.VENT || cible == TypeCanard.EAU) ? 2.0 : 1.0;
     }
 
+    /**
+     * Active la capacité spéciale attaquante
+     * @param cibleCanard canard qui subit l'effet
+     */
     @Override
     public void activerCapaciteSpecialeAttaquante(Canard cibleCanard) {
         Random rand = new Random();

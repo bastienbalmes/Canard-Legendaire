@@ -25,6 +25,11 @@ public class CanardSol extends Canard {
     public double getMultiplicateur(TypeCanard cible) {
         return (cible == TypeCanard.FEU || cible == TypeCanard.ELECTRIQUE) ? 2.0 : (cible == TypeCanard.EAU || cible == TypeCanard.GLACE ? 0.5 : 1.5);
     }
+
+    /**
+     * Active la capacité spéciale attaquante
+     * @param cibleCanard canard qui subit l'effet
+     */
     @Override
     public void activerCapaciteSpecialeAttaquante(Canard cibleCanard) {
         Random rand = new Random();

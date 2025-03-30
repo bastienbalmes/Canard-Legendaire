@@ -182,6 +182,11 @@ public abstract class Canard {
         return this.ptsVie <=0;
     }
 
+    /**
+     * Permet de savoir le multiplicateur de dégats a appliquer sur la cible
+     * @param cible type du canard ciblé
+     * @return true si pokemon < à 0
+     */
     public double getMultiplicateur(TypeCanard cible) {
         switch (this.type) {
             case EAU:
@@ -203,25 +208,39 @@ public abstract class Canard {
         }
     }
 
+    /**
+     * Permet de faire évoluer le canard
+     */
     public void evoluer() {
-        this.ptsVie += 10;  // Augmente de 10 PV
-        this.dgtAttaque += 5;  // Augmente de 5 PA
+        this.ptsVie += 10;
+        this.dgtAttaque += 5;
         System.out.println(this.nom + " a évolué ! PV: " + this.ptsVie + ", PA: " + this.dgtAttaque);
     }
 
+    /**
+     * Permet d'affecter des points de vie
+     */
     public void setPtsVie(double ptsVie) {
         this.ptsVie = ptsVie;
     }
-
+    /**
+     * Permet d'affecter des points d'énergie
+     */
     public void setPe(int pe) {
         this.pe = pe;
     }
 
+    /**
+     * Permet de remettre les pv au max
+     */
     public void resetPv() {
-        this.ptsVie = pvMax;  // Assurez-vous que pvMax stocke les PV initiaux
+        this.ptsVie = pvMax;
     }
+    /**
+     * Permet de remettre les pe au max
+     */
     public void resetPe() {
-        this.pe = 100;  // Assurez-vous que pvMax stocke les PV initiaux
+        this.pe = 100;
     }
 
     /**
