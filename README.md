@@ -61,8 +61,44 @@ J'ai choisi une `ArrayList<Integer>` pour stocker la durée de chaque statut, ce
 - **Pourquoi ce choix ?**
   - Facilite l'ajout de nouveaux effets
   - Permet de gérer facilement la durée des statut
+    
+### 6. Nouveaux Types de Canards
+- **Modifications apportées :**
+  - Ajout des classes `CanardElectrique`, `CanardToxique` et `CanardSol`
+  - Modification de l'`enum TypeCanard` pour inclure les nouveaux types de canards
+- **Pourquoi ce choix ?**
+  - L'`enum TypeCanard` permet de ne pas faire d'erreur de création comme avec une String par exemple
+
+### 2. Attaques Spéciales Uniques
+- **Modifications apportées :**
+  - Ajout de la méthode `activerCapaciteSpecialeAttaquante(Canard cibleCanard)` dans la classe `Canard`
+  - Implémentation de `activerCapaciteSpecialeAttaquante(Canard cibleCanard)` dans `CanardElectrique`, `CanardToxique` et `CanardSol`
+- **Pourquoi ce choix ?**
+  - L'utilisation d'une méthode `activerCapaciteSpecialeAttaquante(Canard cibleCanard)` permet d'ajouter des attaques uniques
+
+### 3. Personnalisation et Progression
+- **Modifications apportées :**
+  - Ajout d’une limite pour les PV et PA pour la création des canards
+  - Stockage des statistiques maximales (`pvMax`, `paMax`)
+  - Ajout de la méthode `evoluer()` pour augmenter les statistiques d'un canard
+- **Pourquoi ce choix ?**
+  - Limiter les stats
+  - La méthode `evoluer()` évite de devoir redéfinir entièrement un canard après une victoire
+
+### 4. Objets Utilisables
+- **Modifications apportées :**
+  - Création d’une classe `Objet`
+  - Ajout des potions qui extends `Objet`
+- **Pourquoi ce choix ?**
+  - L’utilisation d’une classe `Objet` permet d’ajouter facilement de nouveaux items
+
+### 5. Amélioration de la Boucle de Combat
+- **Modifications apportées :**
+  - Ajout d’un système permettant de rejouer avec les mêmes canards sans réinitialisation
+- **Pourquoi ce choix ?**
+  - Permet d’améliorer l’expérience utilisateur
 
 ---
 
 ## Diagramme UML des classes
-![Texte alternatif](DIG-classe.png)
+![Texte alternatif](Diagramme-classe.png)
